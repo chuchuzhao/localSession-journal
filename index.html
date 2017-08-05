@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>AngularJS • TodoMVC</title>
+	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+</head>
+
+<body ng-app="myApp" ng-controller="demoCtrl">
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<form id="todo-form" ng-submit="addTask()">
+				<input id="new-todo" placeholder="What needs to be done?" autofocus ng-model="task">
+			</form>
+		</header>
+		<section id="main">
+			<input type="checkbox" id="toggle-all" ng-model="status" ng-click="selsctAll()">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list">
+				<li ng-repeat="task in taskList | filter:{isCompleted:condition} " ng-class="{'completed':task.isCompleted,'editing':task.isEdit}">
+					<div class="view">
+						<input class="toggle" type="checkbox" ng-model="task.isCompleted" ng-change="changeStatus()">
+						<label ng-bind="task.name" ng-dblclick="editTask(task.id)">task name</label>
+						<button class="destroy" ng-click="deteleTask(task.id)"></button>
+					</div>
+					<form>
+						<input class="edit" ng-model="task.name" ng-blur="leaveIpt()">
+					</form>
+				</li>
+			</ul>
+		</section>
+		<footer id="footer">
+			<span id="todo-count">
+					<strong>{{ countNum() }}</strong>&nbsp;items left
+				</span>
+			<ul id="filters">
+				<li>
+					<a ng-click="selectTask('All')" href="javascript:;">All</a>
+				</li>
+				<li>
+					<a ng-click="selectTask('Active')" href="javascript:;">Active</a>
+				</li>
+				<li>
+					<a ng-click="selectTask('Completed')" href="javascript:;">Completed</a>
+				</li>
+			</ul>
+			<button ng-click="selectCom()" id="clear-completed">Clear completed</button>
+		</footer>
+	</section>
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="js/app.js"></script>
+</body>
+
+</html>
